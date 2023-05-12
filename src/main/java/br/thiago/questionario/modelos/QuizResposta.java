@@ -3,7 +3,7 @@ package br.thiago.questionario.modelos;
 import lombok.Getter;
 
 @Getter
-public class QuizRespostas {
+public class QuizResposta {
 
     private Integer resposta;
 

@@ -1,15 +1,16 @@
 package br.thiago.questionario.modelos;
 
+import br.thiago.questionario.domain.models.QuizQuestion;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class QuizQuestionario {
+public class InserirPerguntaRequestBody {
 
     private String pergunta;
 
-    private List<QuizRespostas> respostas;
+    private List<QuizQuestion> respostas;
 
     private String imagem;
 

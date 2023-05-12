@@ -1,7 +1,7 @@
 package br.thiago.questionario;
 
-import br.thiago.questionario.modelos.QuizQuestionario;
-import jakarta.json.Json;
+import br.thiago.questionario.modelos.InserirPerguntaRequestBody;
+import br.thiago.questionario.modelos.ResponderQuizRequestBody;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -15,21 +15,29 @@ import jakarta.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 public class QuestionarioController {
 
+    private final QuestionarioService service;
+
+    public QuestionarioController(QuestionarioService service) {
+        this.service = service;
+    }
+
 
     @GET
     public Response getQuestionario() {
-        return Response.ok().entity(Json.createValue("Teste")).build();
+        return Response.ok().entity(this.service.recuperarQuestoes()).build();
     }
 
     @POST
-    public Response responderQuestionario() {
-        return Response.ok().entity(Json.createValue("Teste")).build();
+    public Response responderQuestionario(ResponderQuizRequestBody usuarioResposta) {
+        this.service.salvarResposta(usuarioResposta);
+        return Response.noContent().build();
     }
 
     @POST
     @Path("/adicionar/pergunta")
-    public Response adicionarPergunta(QuizQuestionario novaPergunta) {
-        return Response.ok().entity(novaPergunta).build();
+    public Response adicionarPergunta(InserirPerguntaRequestBody novaPergunta) {
+        this.service.salvarPergunta(novaPergunta);
+        return Response.noContent().build();
     }
 
 }
