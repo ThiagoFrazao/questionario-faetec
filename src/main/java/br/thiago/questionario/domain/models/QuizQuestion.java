@@ -1,7 +1,8 @@
 package br.thiago.questionario.domain.models;
 
-import br.thiago.questionario.modelos.InserirPerguntaRequestBody;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,18 +24,18 @@ public class QuizQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    @JoinColumn(name = "responseId")
-    private List<QuizQuestion> responses;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
+    private List<QuizResponse> responses;
 
     private String question;
 
     private String image;
 
-    public QuizQuestion(InserirPerguntaRequestBody novaPergunta) {
-        this.question = novaPergunta.getPergunta();
-        this.image = novaPergunta.getImagem();
-        this.responses = novaPergunta.getRespostas();
+    public QuizQuestion(List<QuizResponse> responses, String question, String image) {
+        this.responses = responses.stream().map(response -> new QuizResponse(response.getResponse(), response.getDescription())).toList();
+        this.question = question;
+        this.image = image;
     }
 
 }

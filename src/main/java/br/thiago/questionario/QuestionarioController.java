@@ -10,7 +10,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/questionario")
+@Path("/api/questionario")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class QuestionarioController {
@@ -24,7 +24,11 @@ public class QuestionarioController {
 
     @GET
     public Response getQuestionario() {
-        return Response.ok().entity(this.service.recuperarQuestoes()).build();
+        try {
+            return Response.ok().entity(this.service.recuperarQuestoes()).build();
+        } catch (Exception e) {
+            return Response.serverError().build();
+        }
     }
 
     @POST
