@@ -10,6 +10,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.List;
+
 @Path("/api/questionario")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -32,8 +34,9 @@ public class QuestionarioController {
     }
 
     @POST
-    public Response responderQuestionario(ResponderQuizRequestBody usuarioResposta) {
-        this.service.salvarResposta(usuarioResposta);
+    @Path("/responder")
+    public Response responderQuestionario(List<ResponderQuizRequestBody> respostaQuiz) {
+        this.service.salvarResposta(respostaQuiz);
         return Response.noContent().build();
     }
 

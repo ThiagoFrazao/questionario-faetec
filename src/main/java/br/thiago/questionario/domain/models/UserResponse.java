@@ -1,6 +1,5 @@
 package br.thiago.questionario.domain.models;
 
-import br.thiago.questionario.modelos.ResponderQuizRequestBody;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,9 +27,8 @@ public class UserResponse {
     @OneToOne
     private QuizQuestion question;
 
-    public UserResponse(ResponderQuizRequestBody usuarioResposta) {
-        this.question = usuarioResposta.getPergunta();
-        this.response = usuarioResposta.getResposta();
+    public UserResponse(QuizQuestion question, QuizResponse response) {
+        this.question = question;
+        this.response = response;
     }
-
 }

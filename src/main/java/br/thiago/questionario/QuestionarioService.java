@@ -14,6 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -45,9 +46,16 @@ public class QuestionarioService {
     }
 
     @Transactional
-    public void salvarResposta(ResponderQuizRequestBody usuarioResposta) {
+    public void salvarResposta(List<ResponderQuizRequestBody> quizResponses) {
         try {
-            this.userResponseRepository.persist(new UserResponse(usuarioResposta));
+            List<UserResponse> responses = new ArrayList<>();
+            quizResponses.forEach(response ->
+                responses.add(new UserResponse(
+                        this.questionRepository.findById(response.getPerguntaId()),
+                        this.responseRepository.findById(response.getRespostaId())
+                ))
+            );
+            this.userResponseRepository.persist(responses);
         } catch (Exception e) {
             log.error("Falha ao salvar resposta do usuario", e);
             throw new DbTransactionException("Ocorreu um erro inesperado ao tentar salvar a resposta do questionario.");
