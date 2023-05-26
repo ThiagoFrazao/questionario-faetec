@@ -6,4 +6,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class UserResponseRepository implements PanacheRepository<UserResponse> {
+
+
+    public long countResponsesForQuestion(Long questionId, Integer responseId) {
+        return this.count("question.id = ?1 and response.id = ?2", questionId, responseId);
+    }
+
 }

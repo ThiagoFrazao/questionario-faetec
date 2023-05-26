@@ -1,7 +1,7 @@
 package br.thiago.questionario;
 
-import br.thiago.questionario.modelos.InserirPerguntaRequestBody;
-import br.thiago.questionario.modelos.ResponderQuizRequestBody;
+import br.thiago.questionario.modelos.questoes.InserirPerguntaRequestBody;
+import br.thiago.questionario.modelos.respostas.ResponderQuizRequestBody;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -45,6 +45,16 @@ public class QuestionarioController {
     public Response adicionarPergunta(InserirPerguntaRequestBody novaPergunta) {
         this.service.salvarPergunta(novaPergunta);
         return Response.noContent().build();
+    }
+
+    @GET
+    @Path("/graficos")
+    public Response getGraficos() {
+        try {
+            return Response.ok().entity(this.service.recuperarGraficos()).build();
+        } catch (Exception e) {
+            return Response.serverError().build();
+        }
     }
 
 }

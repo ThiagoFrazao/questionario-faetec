@@ -1,4 +1,4 @@
-package br.thiago.questionario.modelos;
+package br.thiago.questionario.modelos.questoes;
 
 import lombok.Data;
 

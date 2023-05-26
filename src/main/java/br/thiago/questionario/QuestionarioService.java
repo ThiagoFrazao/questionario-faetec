@@ -7,8 +7,10 @@ import br.thiago.questionario.domain.repository.QuizQuestionRepository;
 import br.thiago.questionario.domain.repository.QuizResponseRepository;
 import br.thiago.questionario.domain.repository.UserResponseRepository;
 import br.thiago.questionario.exceptions.transactions.DbTransactionException;
-import br.thiago.questionario.modelos.InserirPerguntaRequestBody;
-import br.thiago.questionario.modelos.ResponderQuizRequestBody;
+import br.thiago.questionario.modelos.graficos.DadosGraficoResponse;
+import br.thiago.questionario.modelos.graficos.DadosPerguntas;
+import br.thiago.questionario.modelos.questoes.InserirPerguntaRequestBody;
+import br.thiago.questionario.modelos.respostas.ResponderQuizRequestBody;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -74,4 +76,23 @@ public class QuestionarioService {
         }
     }
 
+    public List<DadosGraficoResponse>  recuperarGraficos() {
+        try {
+            List<DadosGraficoResponse> dadosGraficoResponses = new ArrayList<>();
+            List<QuizQuestion> quizQuestions = this.questionRepository.findAll().list();
+            for(QuizQuestion question : quizQuestions) {
+                List<DadosPerguntas> dadosPerguntas = new ArrayList<>();
+                for(QuizResponse response : question.getResponses()) {
+                    dadosPerguntas.add(new DadosPerguntas(
+                            response.getDescription(),
+                            this.userResponseRepository.countResponsesForQuestion(question.getId(), response.getResponse())));
+                }
+                dadosGraficoResponses.add(new DadosGraficoResponse(question.getQuestion(), dadosPerguntas));
+            }
+            return dadosGraficoResponses;
+        } catch (Exception e) {
+            log.error("Falha ao recuperar graficos", e);
+            throw new DbTransactionException("Ocorreu um erro inesperado ao tentar recuperar os graficos.");
+        }
+    }
 }
