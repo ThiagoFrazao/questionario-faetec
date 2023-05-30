@@ -1,0 +1,32 @@
+[
+  {
+    "pergunta":"Luva de Pedreiro",
+    "imagem":"luva_pedreiro.png",
+    "idRespostas":[1, 2, 3, 4]
+  },
+  {
+    "pergunta":"Anitta",
+    "imagem":"anitta.png",
+    "idRespostas":[1, 2, 3, 4]
+  },
+  {
+    "pergunta":"Felipe Ret",
+    "imagem":"felipe_ret.png",
+    "idRespostas":[1, 2, 3, 4]
+  },
+  {
+    "pergunta":"Michael Jackson",
+    "imagem":"michael_jackson.png",
+    "idRespostas":[1, 2, 3, 4]
+  },
+  {
+  "pergunta":"Neymar Jr.",
+  "imagem":"neymar_jr.png",
+  "idRespostas":[1, 2, 3, 4]
+},
+  {
+    "pergunta":"Preta Gil",
+    "imagem":"preta_gil.png",
+    "idRespostas":[1, 2, 3, 4]
+  }
+]

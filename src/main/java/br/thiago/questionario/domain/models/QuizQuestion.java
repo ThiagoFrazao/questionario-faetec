@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "QuizQuestion")
+@Table(name = "quizquestion")
 @Getter
 @NoArgsConstructor
 public class QuizQuestion {
